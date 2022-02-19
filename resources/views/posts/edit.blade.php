@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-@section('title') Create @endsection
+@section('title') Edit @endsection
 
 @section('content')
-<form method="PUT" action="{{route('posts.update', ['post' => $post['id']])}}" class="mt-5">
+<form method="POST" action="{{route('posts.update', ['post' => $post['id']])}}" class="mt-5">
     @csrf
     @method('PUT')
     <div class="mb-3">

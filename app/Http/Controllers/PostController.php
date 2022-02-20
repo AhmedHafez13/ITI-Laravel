@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -36,7 +37,12 @@ class PostController extends Controller
 
     public function show($postId)
     {
-        $post = $this->getPost($postId);
+        $post = Post::where('id', $postId)->first();
+        //dd($post);
+        //Carbon::parse($quotation[0]->created_at)->format('d/m/Y')
+        //dd(Carbon::parse($post->created_at)->format('l jS \\of F Y h:i:s A'));
+        //dd($post->user);
+        $post->formated_created_at = Carbon::parse($post->created_at)->format('l jS \\of F Y h:i:s A');
         return $post
             ? view('posts.show', [ 'post' => $post ])
             : abort(404);

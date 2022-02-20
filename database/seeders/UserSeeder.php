@@ -20,30 +20,5 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::factory(30)->create();
-        /* $users = [
-            ['Ahmed', 'ahmed', '12345'],
-            ['Ali', 'ali', '12345'],
-            ['Youssef', 'youssef', '12345'],
-            ['Saleh', 'saleh', '12345'],
-            ['Ramzi', 'ramzi', '12345'],
-            ['Waleed', 'waleed', '12345'],
-            ['Rahim', 'rahim', '12345'],
-            ['Noor', 'noor', '12345'],
-            ['Hazem', 'hazem', '12345'],
-            ['Mohamed', 'mohamed', '12345'],
-            ['Ihab', 'ihab', '12345'],
-            ['Shams', 'shams', '12345'],
-            ['Ibrahim', 'ibrahim', '12345'],
-            ['Ramy', 'ramy', '12345'],
-            ['Amr', 'amr', '12345'],
-            ['Wael', 'wael', '12345'],
-        ];
-        foreach ($users as $user) {
-            DB::table('users')->insert([
-                'name' => $user[0],
-                'email' => $user[1] . '@gmail.com',
-                'password' => Hash::make('password'),
-            ]);
-        } */
     }
 }

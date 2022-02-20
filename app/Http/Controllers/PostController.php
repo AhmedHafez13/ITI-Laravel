@@ -11,7 +11,9 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(5);
+
+        //dd($posts->links());
 
         if ($posts) {
             foreach ($posts as $post) {

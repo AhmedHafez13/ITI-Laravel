@@ -34,6 +34,10 @@
         @endforeach
     </tbody>
 </table>
+<div class="d-flex justify-content-center">
+    {{ $posts->onEachSide(10)->links() }}
+</div>
+
 
 <div id="deletePostConfirm" class="modal fade" tabindex="-1">
     <div class="modal-dialog">

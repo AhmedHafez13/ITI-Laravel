@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = $this->getPosts();
-        // dd($posts); //to stop excution and dump the $posts
+        $posts = Post::all();
+        //dd($posts); //to stop excution and dump the $posts
         return view('posts.index', [
             'posts' => $posts,
         ]);

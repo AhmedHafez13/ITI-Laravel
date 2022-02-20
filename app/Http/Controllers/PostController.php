@@ -42,17 +42,19 @@ class PostController extends Controller
         //Carbon::parse($quotation[0]->created_at)->format('d/m/Y')
         //dd(Carbon::parse($post->created_at)->format('l jS \\of F Y h:i:s A'));
         //dd($post->user);
-        $post->formated_created_at = Carbon::parse($post->created_at)->format('l jS \\of F Y h:i:s A');
-        return $post
-            ? view('posts.show', [ 'post' => $post ])
-            : abort(404);
+        if ($post) {
+            $post->formated_created_at = Carbon::parse($post->created_at)->format('l jS \\of F Y h:i:s A');
+            return view('posts.show', ['post' => $post]);
+        } else {
+            abort(404);
+        }
     }
 
     public function edit($postId)
     {
         $post = $this->getPost($postId);
         return $post
-            ? view('posts.edit', [ 'post' => $post ])
+            ? view('posts.edit', ['post' => $post])
             : abort(404);
     }
 

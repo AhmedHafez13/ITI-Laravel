@@ -12,7 +12,13 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        //dd($posts); //to stop excution and dump the $posts
+
+        if ($posts) {
+            foreach ($posts as $post) {
+                $post->formated_created_at = Carbon::parse($post->created_at)->format('Y-m-d');
+            }
+        }
+        //dd($posts[0]->user->name); //to stop excution and dump the $posts
         return view('posts.index', [
             'posts' => $posts,
         ]);

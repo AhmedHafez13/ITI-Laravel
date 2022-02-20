@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 use Carbon\Carbon;
 
 class PostController extends Controller
@@ -19,7 +20,10 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('posts.create');
+        $users = User::all();
+        return view('posts.create',[
+            'users' => $users,
+        ]);
     }
 
     public function store()
@@ -29,6 +33,7 @@ class PostController extends Controller
         // dd($requestData);
 
         //store request data in db
+        Post::create($requestData);
 
         //redirection to posts.index
         // return to_route('posts.index'); in laravel 9 only

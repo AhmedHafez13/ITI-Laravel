@@ -3,34 +3,67 @@
 @section('title') Home @endsection
 
 @section('content')
-        <div class="text-center mt-5">
-            <a href="{{route('posts.create')}}" class="btn btn-success ">Create Post</a>
+<div class="text-center mt-5">
+    <a href="{{route('posts.create')}}" class="btn btn-success ">Create Post</a>
 
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Posted By</th>
+            <th scope="col">Created At</th>
+            <th scope="col">Controls</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($posts as $post)
+        <tr>
+            <th scope="row">{{$post->id}}</th>
+            <td>{{$post->title}}</td>
+            <td>{{$post->user ? $post->user->name : 'Not Found'}}</td>
+            <td>{{$post->formated_created_at}}</td>
+            <td>
+                <a href="{{route('posts.show', $post->id)}}" class="btn btn-primary">View</a>
+                <a href="{{route('posts.edit', $post->id)}}" class="btn btn-info">Edit</a>
+                <button type="button" class="btn btn-danger"
+                    onclick="sendDeleteRequest('{{route('posts.destroy', $post->id)}}')">Delete</button>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
+<div id="deletePostConfirm" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete a post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the post?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form id="deleteForm" method="post" action="">
+                    @csrf
+                    @method("DELETE")
+                    <input class="btn btn-danger" type="submit" value="Delete">
+                </form>
+            </div>
         </div>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Posted By</th>
-                <th scope="col">Created At</th>
-                <th scope="col">Controls</th>
-              </tr>
-            </thead>
-            <tbody>
-            @foreach ($posts as $post)
-                <tr>
-                    <th scope="row">{{$post->id}}</th>
-                    <td>{{$post->title}}</td>
-                    <td>{{$post->user ? $post->user->name : 'Not Found'}}</td>
-                    <td>{{$post->formated_created_at}}</td>
-                    <td>
-                        <a href="{{route('posts.show', $post['id'])}}" class="btn btn-primary">View</a>
-                        <a href="{{route('posts.edit', $post['id'])}}" class="btn btn-info">Edit</a>
-                        <a href="{{route('posts.destroy', $post['id'])}}" class="btn btn-danger">Delete</a>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-          </table>
+    </div>
+</div>
+
+<script>
+    function sendDeleteRequest(uri) {
+        console.log("postId", uri);//
+        const deleteForm = document.getElementById("deleteForm");
+        deleteForm.setAttribute("action", uri);
+        deletePostConfirm = new bootstrap.Modal(document.getElementById('deletePostConfirm'));
+        deletePostConfirm.show();
+    }
+</script>
 @endsection

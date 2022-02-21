@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StorePostRequest extends FormRequest
 {
@@ -26,7 +27,8 @@ class StorePostRequest extends FormRequest
         return [
             'title' => 'required|unique:posts|min:3',
             'description' => 'required|min:10',
-            'user_id' => 'nullable',
+            //'user_id' => [Rule::exists('users', 'id')],
+            'user_id' => 'exists:users,id',
         ];
     }
 

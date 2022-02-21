@@ -98,7 +98,7 @@ class PostController extends Controller
 
     public function destroy($postId)
     {
-        // Update the post of id $postId in database
+        // Delete the post of id $postId in database
         $post = Post::where('id', $postId)->first();
         if ($post) {
             $post->delete();

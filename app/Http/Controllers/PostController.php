@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
@@ -34,25 +35,27 @@ class PostController extends Controller
         ]);
     }
 
-    public function store()
+    public function store(StorePostRequest $request)
     {
         //fetch request data
-        $requestData = request()->all();
+        //$requestData = request()->all();
         // dd($requestData);
 
+        // Validate the request data
+        $validated = $request->validated();
+
         //store request data in db
-        Post::create($requestData);
+        $post = Post::create($validated);
 
         //redirection to posts.index
         // return to_route('posts.index'); in laravel 9 only
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
     public function show($postId)
     {
         $post = Post::where('id', $postId)->first();
         //dd($post);
-        //Carbon::parse($quotation[0]->created_at)->format('d/m/Y')
         //dd(Carbon::parse($post->created_at)->format('l jS \\of F Y h:i:s A'));
         //dd($post->user);
         if ($post) {
@@ -76,15 +79,18 @@ class PostController extends Controller
             : abort(404);
     }
 
-    public function update($postId)
+    public function update(StorePostRequest $request, $postId)
     {
         //fetch request data
-        $requestData = request()->all();
+        //$requestData = request()->all();
+
+        // Validate the request data
+        $validated = $request->validated();
 
         // Update the post of id $postId in database
         $post = Post::where('id', $postId)->first();
         if ($post) {
-            $post->update($requestData);
+            $post->update($validated);
         }
 
         return redirect()->route('posts.show', ['post' => $postId]);

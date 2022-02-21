@@ -12,9 +12,12 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Title</th>
+            <th scope="col">Slug</th>
             <th scope="col">Posted By</th>
             <th scope="col">Created At</th>
-            <th scope="col">Controls</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -22,11 +25,12 @@
         <tr>
             <th scope="row">{{$post->id}}</th>
             <td>{{$post->title}}</td>
+            <td>{{$post->slug}}</td>
             <td>{{$post->user ? $post->user->name : 'Not Found'}}</td>
             <td>{{$post->formated_created_at}}</td>
+            <td><a href="{{route('posts.show', $post->id)}}" class="btn btn-primary">View</a></td>
+            <td><a href="{{route('posts.edit', $post->id)}}" class="btn btn-info">Edit</a></td>
             <td>
-                <a href="{{route('posts.show', $post->id)}}" class="btn btn-primary">View</a>
-                <a href="{{route('posts.edit', $post->id)}}" class="btn btn-info">Edit</a>
                 <button type="button" class="btn btn-danger"
                     onclick="sendDeleteRequest('{{route('posts.destroy', $post->id)}}')">Delete</button>
             </td>

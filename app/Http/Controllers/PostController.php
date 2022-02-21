@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
-use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
@@ -55,6 +54,7 @@ class PostController extends Controller
     public function show($postId)
     {
         $post = Post::where('id', $postId)->first();
+
         //dd($post);
         //dd(Carbon::parse($post->created_at)->format('l jS \\of F Y h:i:s A'));
         //dd($post->user);

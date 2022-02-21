@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Jobs\PruneOldPostsJob;
 use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
 
 class PostController extends Controller
 {
+    public function deleteOldPosts() {
+        PruneOldPostsJob::dispatch();
+        dd("Done");
+    }
+
     public function index()
     {
         $posts = Post::paginate(5);

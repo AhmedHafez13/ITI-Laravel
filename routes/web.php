@@ -19,6 +19,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/posts/delete-old-posts', [PostController::class, 'deleteOldPosts']);
+
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
@@ -35,5 +37,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 });
+
+
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -50,7 +50,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto align-items-center">
                         <!-- Authentication Links -->
                         @guest
                         @if (Route::has('login'))
@@ -82,6 +82,8 @@
                                 </form>
                             </div>
                         </li>
+                        <img src="{{Auth::user()->avatar ?? 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png'}}"
+                             alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%">
                         @endguest
                     </ul>
                 </div>

@@ -29,6 +29,7 @@ class GithubLoginController extends Controller
                 'github_id' => $githubUser->id,
                 'github_token' => $githubUser->token,
                 'github_refresh_token' => $githubUser->refreshToken,
+                'avatar' => $githubUser->avatar,
             ]);
         }
 

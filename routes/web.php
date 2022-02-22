@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Auth\GithubLoginController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +17,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+})->name('auth.github');
+
+Route::get('/auth/callback', [GithubLoginController::class, 'login']);
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/posts/delete-old-posts', [PostController::class, 'deleteOldPosts']);
-
-Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
@@ -37,7 +45,3 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 });
-
-
-
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

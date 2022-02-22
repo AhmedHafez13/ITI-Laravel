@@ -24,8 +24,12 @@ class StorePostRequest extends FormRequest
      */
     public function rules()
     {
+        $postId = $this->route('post');
         return [
-            'title' => 'required|unique:posts|min:3',
+            'title' =>  [
+                'required', 'min:3',
+                Rule::unique('posts')->ignore($postId),
+            ],
             'description' => 'required|min:10',
             //'user_id' => [Rule::exists('users', 'id')],
             'user_id' => 'exists:users,id',

@@ -47,10 +47,11 @@ class PostController extends Controller
         // dd($requestData);
 
         // Validate the request data
-        $validated = $request->validated();
+        //$validated = $request->validated();
 
         //store request data in db
-        $post = Post::create($validated);
+        //$post = Post::create($validated);
+        $post = Post::create($request);
 
         //redirection to posts.index
         // return to_route('posts.index'); in laravel 9 only
